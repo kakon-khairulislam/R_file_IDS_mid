@@ -1,0 +1,66 @@
+alldata <- read.csv("D:/Titanic.csv",header = TRUE, sep = ",")
+alldata is a variable name that will store the data read from the CSV file.
+read.csv is an R function used to read data from a CSV (Comma-Separated Values) file. 
+"D:/Titanic.csv" is the file path that points to the location of the CSV file named "Titanic.csv." 
+header = TRUE indicates that the first row of the CSV file contains column names (header). By setting this parameter to TRUE, R will use the first row as the column names for the data frame. If you set it to FALSE, R will assign default column names.
+sep = "," specifies the separator used in the CSV file to distinguish different values in each row. In this case, a comma (",") is used as the separator, which is quite common in CSV files.
+hist(alldata$gender)
+alldata$gender: This part of the code accesses the "gender" column in the alldata data frame. In R, you use the $ symbol to extract a specific column from a data frame. 
+
+hist(): This is an R function used to create histograms, which are graphical representations of the distribution of a numeric variable. A histogram divides the range of the variable into intervals (bins) and displays the frequency or count of observations falling into each bin.
+
+alldata$gender <- factor(alldata$gender,
+                     levels = c(0,1),
+                     labels = c("male","female"))
+factor(): This is an R function used to create a factor variable. A factor is a categorical variable that can take on a limited number of possible values, often represented as levels
+levels = c(0, 1): This parameter specifies the original numeric values that are present in the "gender" column. Here, 0 and 1 are the original numeric representations for male and female, respectively.
+labels = c("male", "female"): This parameter specifies the new labels we want to assign to the original numeric values. By setting "male" and "female" as the labels, we are mapping 0 to "male" and 1 to "female" in the "gender" column.
+
+
+str(alldata)
+he str() function in R is used to display the structure of an R object, providing detailed information about its data type and the first few elements in each component. it will provide a concise summary of the data frame's contents. 
+
+s<-alldata$fare
+sd(s)
+sd(s): This is an R function used to compute the standard deviation of a numeric vector, which in this case is the s variable containing the "fare" column values.
+
+
+install.packages("matrixStats")
+library(matrixStats)
+alldata$score <- rowSds(as.matrix(alldata[, c(2,3)]))
+alldata$score
+install.packages("matrixStats"): This line installs the "matrixStats" package,"matrixStats" provides optimized functions for performing calculations on matrices and data frames.
+"matrixStats" provides optimized functions for performing calculations on matrices and data frames.
+library(matrixStats): After installing the package, this line loads it into the R session, making its functions available for use
+alldata[, c(2, 3)]: This part of the code selects columns 2 and 3 from the alldata data frame. The selected columns are the 2nd and 3rd columns (assuming column indexing starts from 1).
+as.matrix(): This function converts the selected columns into a matrix format. The "rowSds" function requires a matrix as input.
+rowSds(): This function, provided by the "matrixStats" package, calculates the standard deviation for each row of the matrix.
+alldata$score <- ...: This part assigns the computed row standard deviations to a new column named "score" in the alldata data frame.
+
+colSums(is.na(alldata))
+alldata: This is assumed to be a data frame containing your dataset, where rows represent observations and columns represent variables.
+is.na(alldata): The is.na() function in R returns a logical matrix of the same dimensions as the input, where each element is TRUE if the corresponding element in alldata is NA (missing) and FALSE otherwise.
+colSums(is.na(alldata)): The colSums() function in R calculates the column-wise sum of a matrix or data frame. In this case, it takes the logical matrix returned by is.na(alldata) and calculates the sum of TRUE values in each column.
+
+which(is.na(alldata$age))
+is.na(alldata$age): The is.na() function is applied to the "age" column, which returns a logical vector of the same length as the "age" column. Each element in the logical vector is TRUE if the corresponding element in the "age" column is NA (missing) and FALSE otherwise.
+
+which(is.na(alldata$age)): The which() function takes the logical vector returned by is.na(alldata$age) and returns the indices (row numbers) where the value is TRUE, i.e., where the "age" column contains missing values.
+
+na.omit(alldata): The na.omit() function is applied to the alldata data frame. It scans the data frame and removes any rows that contain one or more missing values (NAs).
+
+median(alldata$fare): The median() function in R is used to calculate the median of a numeric vector, in this case, the "fare" column from the alldata data frame.
+
+median: This variable will store the calculated median value of the "fare" column. After executing the line, the variable median will hold the median value.
+
+print(median): The print() function is used to display the value of the median variable. It will print the median value of the "fare" column to the console
+
+mean: This variable will store the calculated mean value of the "fare" column. After executing the line, the variable mean will hold the mean value.
+
+print(mean): The print() function is used to display the value of the mean variable. It will print the mean value of the "fare" column to the console.
+
+5: The first parameter of the sample() function specifies the number of rows to be randomly selected from the alldata data frame. In this case, you are requesting to sample five rows.
+
+replace = TRUE: The replace parameter determines whether sampling should be done with replacement or without replacement. When replace is set to TRUE, sampling is done with replacement, meaning that the same row can be selected more than once in the resulting sample. If replace were set to FALSE, each row would be selected only once, and the resulting sample would not contain duplicate rows.
+
+prob = NULL: The prob parameter allows you to specify a vector of probabilities for sampling. If prob is set to NULL (as in this case), all rows have an equal probability of being selected. When using unequal probabilities, you can control the sampling likelihood of each row.
